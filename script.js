@@ -87,10 +87,26 @@ const submitButton = (event) => {
     }
 
     modalOuter.classList.remove('open');
+};
+// create function of detail
 
-
-
+const myDetails = ($event) => {
+    $event.preventDefault();
+    if ($event.target.matches('.details')) {
+        const formDetail = $event.target;
+        const order = formDetail.closest('.order');
+        const detailName = order.querySelector(".title").textContent;
+        const { size, amount, dish } = order.dataset;
+        modalInner.innerHTML = `
+        <h2>${detailName}</h2>
+        <p>${amount}</p>
+        <p> ${size}</p>
+        <p>${dish}</p>
+        `
+    }
+    modalOuter.classList.add('open');
 };
 
+// event delegation
+
 window.addEventListener('submit', submitButton);
-// add window to listen all the button
