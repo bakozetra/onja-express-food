@@ -4,7 +4,7 @@ const served = document.querySelector('.served');
 const orderLists = document.querySelector('.order-list')
 const orders = document.querySelector('.order');
 const titles = document.querySelector('.title');
-const cardButtons = document.querySelector('.add-order');
+const orderButton = document.querySelector('.add-order');
 const modalInner = document.querySelector('.modal-inner');
 const modalOuter = document.querySelector('.modal-outer');
 const newButton = document.querySelector('.openModal');
@@ -61,40 +61,36 @@ const hadleButton = () => {
 
     modalOuter.classList.add('open')
 }
-cardButtons.addEventListener('click', hadleButton);
+orderButton.addEventListener('click', hadleButton);
 
+// function of the modal 
 
-// add window to listen all the button
-
-window.addEventListener('click', (event) => {
-    console.log(event.target);
-    if (event.target.matches('.submitOrder')) {
-        const inputVal = document.getElementById("name").value;
+const submitButton = (event) => {
+    event.preventDefault();
+    if (event.target.matches('form')) {
+        const form = event.target;
+        const formName = form.name.value;
+        const formSize = form.size.value;
+        const formDish = form.dish.value;
+        const formAmount = form.amount.value;
         const myHtml = `
-        <div class="order">
-            <span class="title">
-            ${inputVal}
+        <div class="order" data-dish="${formDish}" data-size="${formSize}" data-amount="${formAmount}">
+        <span class="title">
+         ${formName}
             </span>
-            <button class="details">Details</button>
-            <button class="served">Delete order</button>
-        </div>
-    `;
-        event.target = myHtml;
-        orderLists.insertAdjacentHTML('afterbegin', myHtml);
-        modalOuter.classList.remove('open');
-        modalOuter.classList.remove('open');
-        modalOuter.reset();
-
-    } else if (event.target.matches('.details')) {
-        const myInput = document.getElementById("name").value;
-        const select = document.querySelector('.select-form').value;
-        const detailHtml = `
-       <h2>me</h2>
-       <p> order</p>
-       `;
-
-
+        <button class="details">Details</button>
+        <button class="served">Delete order</button>
+    </div>
+</div>
+        `;
+        orderLists.insertAdjacentHTML('beforeend', myHtml);
     }
-});
 
-cardButton.forEach(button => button.addEventListener('click', window));
+    modalOuter.classList.remove('open');
+
+
+
+};
+
+window.addEventListener('submit', submitButton);
+// add window to listen all the button
