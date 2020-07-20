@@ -119,8 +119,8 @@
     
     .modal-inner {
         background-color: white;
-        min-height: 200px;
-        min-width: 200px;
+        min-height: 400px;
+        min-width: 400px;
     }
     
     .modal-outer.open .modal-inner {
